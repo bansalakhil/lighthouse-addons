@@ -1,0 +1,75 @@
+== Lighthouse Addons
+
+Package contains two addons:
+
+1. Annotater - Convert your annotations into lighthouse tickets
+2. Ticket Printer   - Print your lighthouse tickets to PDF.
+
+== Configure before starting up
+
+Rename lighthouse.example to lighthouse.yml and fill-in the required fields available in config directory.
+
+== Lighthouse Annotater
+
+Based on rake:notes, lighthouse annotater is prefixed with 'lh', 
+so there are following rake tasks that convert annotations into lighthouse tickets:
+
+rake lhnotes:todo
+rake lhnotes:fixme
+rake lhnotes:optimize
+
+and
+
+rake lhnotes to run all of them.
+
+=== Customizing Annotates
+
+You can provide additional options to annotates to set certain features related to lighthouse ticket. 
+Currently the following features are provided:
+
+1. Title: 
+By default the title of lighthouse ticket will be in this format:
+[TYPE OF ANNOTATION] - CUSTOM TITLE - FILE NAME - LINE NUMBER
+Here you can set the CUSTOM TITLE by specifying the title in **, as: *this will be the title*
+if CUSTOM TITLE is missing, first 25 characters of annotation will be used.
+
+2. Code: 
+You can encode code in double dots, as:
+..:if => proc {|user| user.password?}..
+
+3. Tags: 
+Prefix any word with # and it will be added as a tag for that ticket.
+
+
+=== A complete example:
+# TODO: *Use #dynamic-finders*, like ..User.find_by_name(name).. in #models, #controllers
+
+For this annotate,
+title = Use #dynamic-finders
+code =  User.find_by_name(name)
+tags = dynamic-finders, models, controllers
+
+
+== Lighthouse Ticket Printer
+
+Based on rake:lhnotes, Lighthouse Ticket Printer gives the following tasks:
+
+rake lhnotes:print:todo
+rake lhnotes:print:fixme
+rake lhnotes:print:optimize
+
+and
+
+rake lhnotes:print to print all of them.
+
+To print individual tickets, use:
+
+rake lhnotes:print ARGS
+
+a. ARGS can be either individual ticket nos. or ticket ranges
+b. ARGS need to be seperated by spaces and not comma.
+
+ex:
+
+rake lhnotes:print 1-5 7 9
+rake lhnotes:print 10 15 27
