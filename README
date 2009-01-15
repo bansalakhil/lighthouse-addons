@@ -73,3 +73,7 @@ ex:
 
 rake lhnotes:print 1-5 7 9
 rake lhnotes:print 10 15 27
+
+=== Copyrights
+PDFWriter:      http://www.hollo.org/pdfwriter/
+LighthouseAPI:  http://github.com/Caged/lighthouse-api/tree/master
