@@ -29,7 +29,6 @@ module LighthouseAddons
   end
   
   class LighthouseTicketPrinter
-    
     def self.enumerate(tags_or_tickets, options={})
       new(tags_or_tickets, options)
     end
@@ -58,7 +57,15 @@ module LighthouseAddons
       @pdf = PdfWriter.new(File.open('tickets.pdf', 'wb'), 'LighthouseTickets', :mm)
       @lhauth.connect
       @project_title = @lhauth.project.name
-      @tickets.each { |ticket_id| print(Lighthouse::Ticket.find(ticket_id, :params => {:project_id => @lhauth.project_id})) }
+      @tickets.each do |ticket_id| 
+        begin
+          ticket = Lighthouse::Ticket.find(ticket_id, :params => {:project_id => @lhauth.project_id})
+        rescue
+         puts "  * [NOT-FOUND] Ticket #{ticket_id}"
+        else
+          print(ticket)        
+        end
+      end
       @pdf.writeEnd
       exit
     end
@@ -78,7 +85,6 @@ module LighthouseAddons
   end
   
   class LighthouseSourceAnnotation
-    
     attr_accessor :enumerator, :lh
   
     def initialize(tag)
