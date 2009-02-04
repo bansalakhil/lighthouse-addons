@@ -111,7 +111,7 @@ module LighthouseAddons
         lines_deleted = 0
         annotations.each do |annotation|
           if annotation.text =~ /^\[(\d+)\]/
-            puts "  * [NOT CHANGED] #{annotation.to_s(options)}"
+            puts "  * [NOT CHANGED] - Ticket: #{$1}"
           elsif annotation.text =~ /^\[(\d+)\:[f|F]\]/
             ticket = Lighthouse::Ticket.find($1, :params => { :project_id => lh.project_id })
             ticket.state = lh.resolved_status
@@ -134,7 +134,7 @@ module LighthouseAddons
             ticket_url = "http://#{lh.account}.lighthouseapp.com/projects/#{lh.project_id}-#{lh.project.permalink}/tickets/#{ticket.id}-#{ticket.permalink}/"
             # ticket_url = "http://#{lh.account}.lighthouseapp.com/projects/#{lh.project_id}-#{lh.project.permalink}/tickets/15-todo-userrb-87"
             data[annotation.line-1] = data[annotation.line-1].gsub(annotation.text, "[#{ticket.id}] - #{annotation.text} - #{ticket_url}")
-            puts "  * #{annotation.to_s(options)} - Ticket: #{ticket.id} created"
+            puts "* Ticket: #{ticket.id} created - #{less(annotation.to_s(options),100)} "
           end
         end
         File.open(path,'w'){|f| f.write(data)} unless old_data == data
