@@ -108,6 +108,10 @@ To print all tickets, don't provide any search string:
 
 rake lhprint:search
 
+=== Bugs or Feedback ?
+Use lighthouse :)
+http://lhaddons.lighthouseapp.com/
+
 === Copyrights
 PDFWriter:      http://www.hollo.org/pdfwriter/
 LighthouseAPI:  http://github.com/Caged/lighthouse-api/tree/master
