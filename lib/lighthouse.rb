@@ -1,6 +1,6 @@
 require 'rubygems'
 
-begin
+=begin
   require 'uri'
   require 'addressable/uri'
 
@@ -21,7 +21,7 @@ rescue LoadError
   puts "Install the Addressable gem to support accounts with subdomains."
   puts "# sudo gem install addressable"
   puts
-end
+=end
 
 require 'activesupport'
 require 'activeresource'

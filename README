@@ -3,7 +3,7 @@
 Package contains two addons:
 
 1. Annotater - Convert your annotations into lighthouse tickets
-2. Ticket Printer   - Print your lighthouse tickets to PDF.
+2. Printer   - Print your lighthouse tickets to PDF.
 
 == Configure before starting up
 
@@ -17,10 +17,11 @@ so there are following rake tasks that convert annotations into lighthouse ticke
 rake lhnotes:todo
 rake lhnotes:fixme
 rake lhnotes:optimize
+rake lhnotes:custom ANNOTATION=custom_tag
 
 and
 
-rake lhnotes to run all of them.
+rake lhnotes to run all of them (except custom).
 
 === Customizing Annotates
 
@@ -49,30 +50,63 @@ title = Use #dynamic-finders
 code =  User.find_by_name(name)
 tags = dynamic-finders, models, controllers
 
-
 == Lighthouse Ticket Printer
 
 Based on rake:lhnotes, Lighthouse Ticket Printer gives the following tasks:
 
-rake lhnotes:print:todo
-rake lhnotes:print:fixme
-rake lhnotes:print:optimize
+rake lhprint:todo
+rake lhprint:fixme
+rake lhprint:optimize
+rake lhprint:custom ANNOTATION=custom_tag
 
 and
 
-rake lhnotes:print to print all of them.
+rake lhprint to print all of them.
+
+== Print individual tickets
 
 To print individual tickets, use:
 
-rake lhnotes:print ARGS
+rake lhprint:tickets ticket_nos
 
-a. ARGS can be either individual ticket nos. or ticket ranges
-b. ARGS need to be seperated by spaces and not comma.
+a. ticket_nos can be either individual ticket nos. or ticket ranges
+b. ticket_nos need to be seperated by spaces and not comma.
 
 ex:
 
-rake lhnotes:print 1-5 7 9
-rake lhnotes:print 10 15 27
+rake lhprint:tickets 1-5 7 9
+rake lhprint:tickets 10 15 27
+
+== Print all tickets of a milestone
+To print tickets belonging to a milestone, use:
+
+rake lhprint:ms milestone_id
+
+ex:
+
+rake lhprint:ms 12345
+
+== Print all tickets for the current milestone
+To print all tickets for the current milestone, 
+don't provide the milestone_id: 
+
+rake lhprint:ms
+
+== Print tickets by search
+You can also print selected tickets returned as a result of lighhouse search, use:
+
+rake lhprint:search "search_string"
+
+a. search_string should be enclosed in quotes ""
+
+ex:
+
+rake lhprint:search "milestone:'milestone 1' tagged:'tag 1'"
+
+== Print all tickets
+To print all tickets, don't provide any search string: 
+
+rake lhprint:search
 
 === Copyrights
 PDFWriter:      http://www.hollo.org/pdfwriter/
