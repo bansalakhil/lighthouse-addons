@@ -29,6 +29,7 @@ module LighthouseAddons
   end
   
   class LighthouseTicketPrinter
+    
     def self.enumerate(tags_or_tickets, options={})
       new(tags_or_tickets, options)
     end
@@ -85,6 +86,7 @@ module LighthouseAddons
   end
   
   class LighthouseSourceAnnotation
+    
     attr_accessor :enumerator, :lh
   
     def initialize(tag)
@@ -96,6 +98,7 @@ module LighthouseAddons
       annotater   = new(tag)
       lh          = annotater.lh
       enumerator  = annotater.enumerator
+      unchanged_tickets = []
       
       if enumerator.empty?
         puts "No tags found to replace, exiting..."
@@ -111,7 +114,7 @@ module LighthouseAddons
         lines_deleted = 0
         annotations.each do |annotation|
           if annotation.text =~ /^\[(\d+)\]/
-            puts "  * [NOT CHANGED] - Ticket: #{$1}"
+            unchanged_tickets << $1
           elsif annotation.text =~ /^\[(\d+)\:[f|F]\]/
             ticket = Lighthouse::Ticket.find($1, :params => { :project_id => lh.project_id })
             ticket.state = lh.resolved_status
@@ -139,6 +142,7 @@ module LighthouseAddons
         end
         File.open(path,'w'){|f| f.write(data)} unless old_data == data
       end
+      puts "\nThe following tickets have not been modified: #{unchanged_tickets.join(', ')}" unless unchanged_tickets.empty?
     end
   end
 end
