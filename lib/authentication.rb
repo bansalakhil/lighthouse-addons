@@ -16,6 +16,7 @@ module LighthouseAddons
       @password         = config['password']
       @project_id       = config['project_id']
       @resolved_status  = config['resolved_status']
+      @directories      = eval config['directories']
     end
     
     def authenticate
@@ -23,5 +24,10 @@ module LighthouseAddons
       Lighthouse.authenticate(@username, @password)
       @project = Lighthouse::Project.find(@project_id)
     end
+
+    def directories
+      @directories
+    end
+
   end
 end

@@ -3,3 +3,4 @@ username: username
 password: password
 project_id:  project_id
 resolved_status: resolved_status
+directories: %w(app lib test spec)

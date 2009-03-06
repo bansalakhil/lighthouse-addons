@@ -6,7 +6,7 @@ module LighthouseAddons
   
     def initialize(tag)
       @lh         = LighthouseAddons::Authentication.new
-      @enumerator = SourceAnnotationExtractor.new(tag).find(%w(app lib test spec))
+      @enumerator = SourceAnnotationExtractor.new(tag).find(@lh.directories)
     end
   
     def self.enumerate(tag, options={})
