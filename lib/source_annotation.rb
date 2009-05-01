@@ -48,6 +48,7 @@ module LighthouseAddons
             ticket.title = "[#{annotation.tag}] - #{title} - #{path.split('/').last} - #{annotation.line}"
             ticket.body = str
             ticket.tags = tags
+	    ticket.assigned_user_id = lh.responsible if lh.responsible
             ticket.save
             ticket_url = "http://#{lh.account}.lighthouseapp.com/projects/#{lh.project_id}-#{lh.project.permalink}/tickets/#{ticket.id}-#{ticket.permalink}/"
             # ticket_url = "http://#{lh.account}.lighthouseapp.com/projects/#{lh.project_id}-#{lh.project.permalink}/tickets/15-todo-userrb-87"
